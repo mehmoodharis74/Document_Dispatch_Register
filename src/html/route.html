@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="/src/js/logout.js"></script>
+    <title>Document</title>
+    <style>
+        .route-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.left-stack, .right-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.left-stack {
+  margin-right: 20px;
+}
+
+.route-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 150px;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.route-btn span {
+  flex-grow: 1;
+}
+
+.track-like-path {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.track-like-path li {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="flex flex-col lg:flex-row justify-between mx-auto my-10 lg:w-2/3">
+        <div class="flex mx-8 flex-col w-full lg:w-1/2 ">
+          <h2 class="text-lg font-bold mb-4">Available Routes</h2>
+          <div id="left-stack" class="flex flex-col gap-4">
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">Academics</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">Director</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">Rector</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">HOD</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">Finance Committee</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">FYP Committee</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between bg-white rounded-lg py-2 px-4 shadow-md">
+              <span class="text-gray-700 font-bold">OneStop Faculty</span>
+              <button class="right-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex mx-8 flex-col w-full lg:w-1/2">
+          <h2 class="text-lg font-bold mb-4">Selected Routes</h2>
+          <div id="right-stack" class="flex flex-col gap-4">
+            <!-- Selected routes will be added here -->
+          </div>
+      
+          <div id="tracking-path" class="flex flex-col items-center justify-center mt-4">
+            <!-- Tracking path will be added here -->
+          </div>
+      
+          <button id="ok-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+            OK
+          </button>
+        </div>
+      </div>
+      
+      
+</body>
+<script>
+  const leftStack = document.getElementById("left-stack");
+const rightStack = document.getElementById("right-stack");
+const trackingPath = document.getElementById("tracking-path");
+const okButton = document.getElementById("ok-button");
+
+// Function to move a route from left stack to right stack
+const moveToRightStack = (route) => {
+  // Create a new route element in the right stack
+  const routeElement = document.createElement("div");
+  routeElement.classList.add(
+    "flex",
+    "items-center",
+    "justify-between",
+    "bg-white",
+    "rounded-lg",
+    "py-2",
+    "px-4",
+    "shadow-md"
+  );
+  const routeName = document.createElement("span");
+  routeName.classList.add("text-gray-700", "font-bold");
+  routeName.textContent = route.textContent;
+  const rightArrow = document.createElement("button");
+  rightArrow.classList.add("right-arrow");
+  const rightArrowIcon = document.createElement("i");
+  rightArrowIcon.classList.add("fas", "fa-chevron-right");
+  rightArrow.appendChild(rightArrowIcon);
+  routeElement.appendChild(routeName);
+  routeElement.appendChild(rightArrow);
+  rightStack.appendChild(routeElement);
+
+  // Remove the original route element from the left stack
+  leftStack.removeChild(route);
+
+  // Add the route name to the tracking path
+  const trackingItem = document.createElement("span");
+  trackingItem.textContent = routeName.textContent;
+  trackingPath.appendChild(trackingItem);
+};
+
+// Add click event listeners to all right arrow buttons
+const rightArrows = document.querySelectorAll(".right-arrow");
+rightArrows.forEach((rightArrow) => {
+  rightArrow.addEventListener("click", () => {
+    // Get the corresponding route element
+    const route = rightArrow.parentElement;
+    // Move the route to the right stack
+    moveToRightStack(route);
+  });
+});
+
+</script>
+</html>

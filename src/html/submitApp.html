@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="/src/js/moveToIndex.js"></script>
+    <script src="/src/js/logout.js"></script>
+    <style>
+   
+      #attachments {
+        margin: 2rem 2.8rem 2rem 2.8rem;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+      }
+      .container1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container1 button {
+  margin: 4px;
+}
+
+.container1 button:nth-child(1),
+.container1 button:nth-child(2),
+.container1 button:nth-child(3) {
+  margin-right: auto;
+}
+
+.container1 button:nth-child(4),
+.container1 button:nth-child(5) {
+  margin-left: auto;
+}
+
+      .attachment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.attachment img {
+  max-width: 30px;
+  max-height: 30px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+      
+      #attachments-count {
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      
+      /* .attachment {
+        display: flex;
+
+        justify-content: stretch;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+      }
+      
+      .attachment img {
+        max-width: 50px;
+        max-height: 50px;
+      } */
+      .hidden{display: none;}
+   </style>
+  </head>
+  <body>
+     <!-- This is header here -->
+     <header class="text-gray-600 body-font bg-gray-100">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="ml-3 text-xl">Application Dispatch Software</span>
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+          <p class="mr-5 hover:text-gray-900">Amir Rehman</p>
+        </nav>
+        <button class="inline-flex items-center bg-blue-500 text-white border-0 py-2 px-4 focus:outline-none rounded text-sm mt-4 md:mt-0" onclick="logout()">Logout
+          
+        </button>
+      </div>
+    </header>
+    <!-- ends here  -->
+
+    
+    <div id="attachments">
+      <div id="attachments-count">Attachments added: 0</div>
+   
+    </div>
+
+     <!-- bottom buttons are here -->
+     <section class="text-white body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <button id="scan-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Scan 
+        </button>
+        <button id="upload-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Upload
+        </button>
+        <button class="inline-flex mx-auto mt-4 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Route
+        </button>
+        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Sumbit
+        </button>
+        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0" onclick="gotoindex_page()">Cancel
+      </div>
+    </section>
+   
+    <script>
+      const scanButton = document.getElementById("scan-button");
+      const uploadButton = document.getElementById("upload-button");
+      const attachmentsDiv = document.getElementById("attachments");
+      const attachmentsCountDiv = document.getElementById("attachments-count");
+     
+      let attachmentCount = 0;
+      
+      function createAttachment(file) {
+  const attachment = document.createElement('div');
+  attachment.classList.add('attachment');
+  
+  const image = document.createElement('img');
+  image.src = URL.createObjectURL(file);
+  attachment.appendChild(image);
+  
+  const removeButton = document.createElement("button");
+        removeButton.innerText = "Remove";
+        removeButton.style.color = "red";
+        removeButton.id = `remove-button-${attachmentCount}`;
+        removeButton.className = "remove-button";
+        attachment.appendChild(removeButton);
+        removeButton.addEventListener("click", function() {
+          attachment.remove();
+          attachmentCount--;
+          updateAttachmentCount();
+        });
+  
+  return attachment;
+}
+
+      // Function to update attachment count
+      function updateAttachmentCount() {
+        attachmentsCountDiv.innerText = `Attachments added: ${attachmentCount}`;
+      }
+      
+      
+ scanButton.addEventListener("click", function() {
+        localStorage.removeItem('imgUrl');
+  // Open camera window
+  const windowTab = window.open('', 'Camera', 'height=600,width=600');
+  windowTab.location.href = 'camera.html';
+  // Listen for message from camera window
+  window.addEventListener('message', function(event) {
+    // Get image data from message
+    const imgUrl = event.data;
+   
+    if (imgUrl) {
+      const newAttachment = document.createElement("div");
+        newAttachment.className = "attachment";
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        newAttachment.appendChild(img);
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Remove";
+        removeButton.style.color = "red";
+        removeButton.id = `remove-button-${attachmentCount}`;
+        removeButton.className = "remove-button";
+        removeButton.addEventListener("click", function() {
+          newAttachment.remove();
+          attachmentCount--;
+          updateAttachmentCount();
+        });
+        newAttachment.appendChild(removeButton);
+        attachmentsDiv.appendChild(newAttachment);
+        attachmentCount++;
+        updateAttachmentCount();
+    }
+  });
+ 
+});
+
+
+      // Add event listener to upload button
+
+uploadButton.addEventListener('click', () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.multiple = true;
+  input.addEventListener('change', () => {
+    const files = input.files;
+    for (let i = 0; i < files.length; i++) {
+
+      const attachment = createAttachment(files[i]);
+      attachmentsDiv.appendChild(attachment);
+        attachmentCount++;
+        updateAttachmentCount();
+    }
+    attachmentsCountElement.textContent = `Attachments added: ${attachmentsCount}`;
+  });
+  input.click();
+});
+
+
+
+    </script>
+  </body>
+</html>
+

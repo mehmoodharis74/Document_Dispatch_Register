@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+   
+
+    <title>Application Dispatch Software</title>
+</head>
+<body> 
+  <!-- This is header here -->
+    <header class="text-gray-600 body-font bg-gray-100">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">Application Dispatch Software</span>
+          </a>
+          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <p class="mr-5 hover:text-gray-900">Amir Rehman</p>
+          </nav>
+          <button class="inline-flex items-center bg-blue-500 text-white border-0 py-2 px-4 focus:outline-none rounded text-sm mt-4 md:mt-0" onclick="logout()">Logout
+            
+          </button>
+        </div>
+      </header>
+      <!-- ends here  -->
+
+
+                                                 <!-- main body starts from here -->
+      <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="flex flex justify-center -m-4">
+            <div class="p-4 lg:w-1/4">
+              <div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
+                <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">Submit Application</h1>
+                <p class="leading-relaxed mb-3 mt-3">You can submit your new applications here.</p>
+                 <button onclick="submitAppBtn_onAction()" class="flex mx-auto mt-8 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm">Click here</button>
+                
+              </div>
+            </div>
+            <div class="p-4 lg:w-1/4">
+              <div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
+                <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">Search Applications</h1>
+                <p class="leading-relaxed mb-3 mt-3">You can search your sumbitted applications here.</p>
+                 <button class="flex mx-auto mt-8 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm">Click here</button>
+                
+              </div>
+            </div>
+            <div class="p-4 lg:w-1/4">
+              <div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
+                <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">Track Application</h1>
+                <p class="leading-relaxed mb-3 mt-3">You can track your applications here and know about there status.</p>
+                 <button class="flex mx-auto mt-8 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm">Click here</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- main body ends here -->
+</body>
+
+<!-- logut button script here -->
+<script src="../js/logout.js"></script>
+<!-- logout button script ends here -->
+<script>
+  function submitAppBtn_onAction(){
+    window.location.href = "submitApp.html";
+  }
+</script>
+<script>
+  function searchAppBtn_onAction(){
+    window.location.href = "searchApp.html";
+  }
+</script>
+<script>
+  function trackAppBtn_onAction(){
+    window.location.href = "trackApp.html";
+  }
+</script>
+</html>
