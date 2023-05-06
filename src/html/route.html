@@ -64,6 +64,13 @@
     </style>
 </head>
 <body>
+    <section class="text-gray-600 body-font relative">
+        <div class="container px-5 py-8 mx-auto">
+          <div class="flex flex-col text-center w-full mb-2">
+            <h1 class="sm:text-3xl text-2xl font-bold title-font mb-4 text-gray-900">Select Application Route</h1>
+          </div>
+        </div>
+        </section>
     <div class="flex flex-col lg:flex-row justify-between mx-auto my-10 lg:w-2/3">
         <div class="flex mx-8 flex-col w-full lg:w-1/2 ">
           <h2 class="text-lg font-bold mb-4">Available Routes</h2>
@@ -119,19 +126,38 @@
             <!-- Selected routes will be added here -->
           </div>
       
-          <div id="tracking-path" class="flex flex-col items-center justify-center mt-4">
+          <div id="tracking-path" class="flex flex-col items-center hidden overflow-hidden justify-center mt-4">
             <!-- Tracking path will be added here -->
           </div>
       
-          <button id="ok-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
-            OK
-          </button>
+         
         </div>
+        
       </div>
-      
+
+        <div class="container fixed px-5 py-4 mx-auto">
+          <button class="flex mx-auto mt-2 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm" onclick="route_selected()" >Select</button>
+        </div>
+     
+
+
+
+     
       
 </body>
 <script>
+    let selectedRoutes = [];
+    let selected_routes = "";
+    function route_selected(){
+        // var selected_routes = document.getElementById("trakingPath").innerHTML;
+        for (let i = 0; i < selectedRoutes.length; i++) {
+            selected_routes += selectedRoutes[i] + " ";
+        }
+        console.log(selected_routes);
+        localStorage.setItem("selected_routes", selected_routes);
+        //move page to back 
+        window.history.back();
+    }
   const leftStack = document.getElementById("left-stack");
 const rightStack = document.getElementById("right-stack");
 const trackingPath = document.getElementById("tracking-path");
@@ -158,19 +184,73 @@ const moveToRightStack = (route) => {
   rightArrow.classList.add("right-arrow");
   const rightArrowIcon = document.createElement("i");
   rightArrowIcon.classList.add("fas", "fa-chevron-right");
+  const crossIcon = document.createElement("i");
+  crossIcon.classList.add("fas", "fa-times");
   rightArrow.appendChild(rightArrowIcon);
   routeElement.appendChild(routeName);
   routeElement.appendChild(rightArrow);
   rightStack.appendChild(routeElement);
 
   // Remove the original route element from the left stack
-  leftStack.removeChild(route);
+ 
 
   // Add the route name to the tracking path
   const trackingItem = document.createElement("span");
   trackingItem.textContent = routeName.textContent;
   trackingPath.appendChild(trackingItem);
+  selectedRoutes.push(routeName.textContent);
+
+  if (rightArrow.classList.contains("right-arrow")) {
+    leftStack.removeChild(route);
+      // Change the right arrow icon to a cross
+      rightArrow.removeChild(rightArrowIcon);
+      const crossIcon = document.createElement("i");
+      crossIcon.classList.add("fas", "fa-times");
+      rightArrow.appendChild(crossIcon);
+
+      // Change the class of the right arrow button to indicate the change
+      rightArrow.classList.remove("right-arrow");
+      rightArrow.classList.add("cross-icon");
+
+      // Add click event listener to the cross icon
+      
+    } else {
+      // Change the cross icon to a right arrow
+      rightArrow.removeChild(rightArrowIcon);
+      rightArrowIcon.classList.add("fas", "fa-chevron-right");
+      rightArrow.appendChild(rightArrowIcon);
+
+      // Change the class of the right arrow button to indicate the change
+      rightArrow.classList.remove("cross-icon");
+      rightArrow.classList.add("right-arrow");
+
+      // Move the route back to the left stack
+      leftStack.appendChild(routeElement);
+
+      // Remove the tracking item from the tracking path
+      trackingPath.removeChild(trackingItem);
+    }
+
+  crossIcon.addEventListener("click", () => {
+    console.log("clicked");
+        // Change the cross icon to a right arrow
+        rightArrow.removeChild(crossIcon);
+        rightArrowIcon.classList.add("fas", "fa-chevron-right");
+        rightArrow.appendChild(rightArrowIcon);
+
+        // Change the class of the right arrow button to indicate the change
+        rightArrow.classList.remove("cross-icon");
+        rightArrow.classList.add("right-arrow");
+
+        // Move the route back to the left stack
+        leftStack.appendChild(routeElement);
+
+        // Remove the tracking item from the tracking path
+        trackingPath.removeChild(trackingItem);
+      });
 };
+
+
 
 // Add click event listeners to all right arrow buttons
 const rightArrows = document.querySelectorAll(".right-arrow");

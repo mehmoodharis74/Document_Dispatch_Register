@@ -5,8 +5,7 @@
     <title>Document Scanner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script src="/src/js/moveToIndex.js"></script>
-    <script src="/src/js/logout.js"></script>
+    
     <style>
    
       #attachments {
@@ -100,7 +99,7 @@
     </header>
     <!-- ends here  -->
 
-    
+    <section id="to_style">
     <div id="attachments">
       <div id="attachments-count">Attachments added: 0</div>
    
@@ -109,19 +108,49 @@
      <!-- bottom buttons are here -->
      <section class="text-white body-font">
       <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <button id="scan-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Scan 
+        <button id="scan-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Scan 
         </button>
-        <button id="upload-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Upload
+        <button id="upload-button" class="inline-flex mx-auto mt-4 mr-2 items-center bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Upload
         </button>
-        <button class="inline-flex mx-auto mt-4 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Route
+        <button class="inline-flex mx-auto mt-4 items-center bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0" onclick="moveToRoute()">Route 
         </button>
-        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0">Sumbit
+        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0" onclick="sumbit_app()">Submit
         </button>
-        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0" onclick="gotoindex_page()">Cancel
+        <button class="inline-flex mx-auto mt-4 ml-2 items-center bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-base mt-4 md:mt-0" onclick="gotoindex_page()">Cancel
       </div>
     </section>
-   
+    <!-- ends here  -->
+
+  </section>
+  <!-- pop up form -->
+  <section class=" absolute mt-auto text-gray-600 body-font w-1/4 h-2/6" id="pop_up1" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <div class=" bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+      
+      <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Application Submitted Succesfully</h2>
+     
+     <div class="flex flex-row  justify-center gap-x-5 mt-3">
+      <button class="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-base"  onclick="closeForm()">Close</button>
+    </div>
+  </div>
+  
     <script>
+      function sumbit_app(){
+        document.getElementById("pop_up1").style.display = "block";
+        // blur the background
+        document.getElementById("to_style").style.filter = "blur(5px)";
+        
+      }
+      function closeForm() {
+    document.getElementById("pop_up1").style.display = "none";
+    // reset blur to default
+    document.getElementById("to_style").style.filter = "blur(0px)";
+   
+    window.location.href = "index.html";
+    }
+    
+      function moveToRoute(){
+        window.location.href = "route.html";
+      }
       const scanButton = document.getElementById("scan-button");
       const uploadButton = document.getElementById("upload-button");
       const attachmentsDiv = document.getElementById("attachments");
@@ -213,10 +242,10 @@ uploadButton.addEventListener('click', () => {
   });
   input.click();
 });
-
-
-
     </script>
+    
+<script src="/src/js/moveToIndex.js"></script>
+<script src="/src/js/logout.js"></script>
   </body>
 </html>
 
