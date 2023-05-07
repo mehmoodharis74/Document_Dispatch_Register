@@ -178,7 +178,7 @@ for(let i=0; i<100; i++){
           (dropDownOption === "appId" && record.appId === userInput) ||
           (dropDownOption === "docId" && record.docId === userInput) ||
           (dropDownOption === "Department" && record.department.toLowerCase().includes(userInput.toLowerCase())) ||
-          (dropDownOption === "appType" && record.appType.toLowerCase().includes(userInput.toLowerCase())) ||
+          (dropDownOption === "appType" && record.type.toLowerCase().includes(userInput.toLowerCase())) ||
           (dropDownOption === "status" && record.status.toLowerCase().includes(userInput.toLowerCase()))) {
         // Add the matching record to the new array
         matchingRecords.push(record);
