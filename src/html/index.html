@@ -47,7 +47,7 @@
               <div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
                 <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">Search Applications</h1>
                 <p class="leading-relaxed mb-3 mt-3">You can search your sumbitted applications here.</p>
-                 <button class="flex mx-auto mt-8 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm">Click here</button>
+                 <button class="flex mx-auto mt-8 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded text-sm" onclick="searchAppBtn_onAction()">Click here</button>
                 
               </div>
             </div>
@@ -75,6 +75,7 @@
 </script>
 <script>
   function searchAppBtn_onAction(){
+    
     window.location.href = "searchApp.html";
   }
 </script>

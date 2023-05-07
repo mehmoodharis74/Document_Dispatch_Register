@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Applications
+
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    table{
+        width:90%; 
+        margin-left: 5%;   
+        
+      }
+     th, td {
+         height: 20px;
+border-bottom: 1px solid #ddd;
+text-align:left;
+
+}
+#no_data{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+    display: none;
+}
+</style>
+</head>
+<body>
+
+  <!-- This is header here -->
+  <header class="text-gray-600 body-font bg-gray-100">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl">Application Dispatch Software</span>
+      </a>
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <p class="mr-5 hover:text-gray-900">Amir Rehman</p>
+      </nav>
+      <button class="inline-flex items-center bg-blue-500 text-white border-0 py-2 px-4 focus:outline-none rounded text-sm mt-4 md:mt-0" onclick="logout()">Logout
+        
+      </button>
+    </div>
+  </header>
+  <!-- ends here  -->
+  
+  
+    <!--Search-->
+  
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 pt-4 py-8 ml-24 mr-24">
+  
+        <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+          
+          <div class="relative flex-grow w-full mr-16">
+            <select id="drop_down_req_menu" class="w-full h-10 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required="required" name="drop_down_req_menu">
+              <option id="stid" value="studentId">Student ID</option>
+              <option id="sdname" value="sdname">Student Name</option>
+              <option id="appid" value="appId">Application ID</option>
+              <option id="docid" value="docId">Document ID</option>
+              <option id="dep" value="Department">Department</option>
+              <option id="appType" value="appType">Application Type</option>
+              <option id="status" value="status">Status</option>
+            </select>
+  
+            <label id="total_req_count" Text="" class="flex flex-col justify-self-center text-center text-gray-600"></label>
+  
+          </div>
+          <div class="relative flex-grow w-full pb-16">
+            <h1 class="title-font font-bold text-2xl text-gray-900 mb-3">Search Applications</h1>
+          </div>
+          <div class="relative flex-grow w-full">
+            <input placeholder="Search here..." type="text" id="view_req_detail" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></input>
+          </div>
+          <button id="request_input_button_id" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lgn pointer-cursor" onclick="searchRecord()">Search</button>
+        </div>
+      </div>
+    </section>
+  
+  
+  
+    <div class="grid justify-items-stretch">
+      <label runat="server" id="no_data_label" class="justify-self-center text-center text-gray-600"></label>
+      <table id="grdUser" runat="server" autoGenerateColumns="false">
+        <thead>
+          <tr>
+            <th style="display:hidden;"></th>
+            <th>STUDENT ID</th>
+            <th>APPLICATION ID</th>
+            <th>DOC ID</th>
+            <th>APPLICANT NAME</th>
+            <th>DEPARTMENT</th>
+            <th>TYPE</th>
+            <th>PRIORITY</th>
+            <th>STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- The data rows will be dynamically generated -->
+        </tbody>
+      </table>
+    </div>
+    
+    <div id="no_data" >
+        <p id="no_data_label" class="justify-self-center text-center text-gray-600">No Records Found</p>
+    </div>
+  </body>
+  
+<script src="../js/logout.js"></script>
+ <script src="../js/searchApp.js"></script>
+ <script>
+    window.onload = function() {
+      generateTable(records);
+    };
+  </script>
+
+</html>
